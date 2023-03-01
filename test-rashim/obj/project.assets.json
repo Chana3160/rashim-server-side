@@ -3917,11 +3917,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\User\\מסמכים\\test-rashim\\test-rashim\\test-rashim.csproj",
+      "projectUniqueName": "C:\\Users\\User\\Videos\\test-rashim\\test-rashim\\test-rashim.csproj",
       "projectName": "test-rashim",
-      "projectPath": "C:\\Users\\User\\מסמכים\\test-rashim\\test-rashim\\test-rashim.csproj",
+      "projectPath": "C:\\Users\\User\\Videos\\test-rashim\\test-rashim\\test-rashim.csproj",
       "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\User\\מסמכים\\test-rashim\\test-rashim\\obj\\",
+      "outputPath": "C:\\Users\\User\\Videos\\test-rashim\\test-rashim\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
