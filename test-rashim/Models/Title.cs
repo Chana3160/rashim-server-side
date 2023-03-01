@@ -25,6 +25,8 @@ public partial class Title
 
     public DateTime Pubdate { get; set; }
 
+    public virtual ICollection<ItemOrder> ItemOrders { get; } = new List<ItemOrder>();
+
     public virtual Publisher? Pub { get; set; }
 
     public virtual ICollection<Sale> Sales { get; } = new List<Sale>();

@@ -21,7 +21,11 @@ public partial class PubsContext : DbContext
 
     public virtual DbSet<Employee> Employees { get; set; }
 
+    public virtual DbSet<ItemOrder> ItemOrders { get; set; }
+
     public virtual DbSet<Job> Jobs { get; set; }
+
+    public virtual DbSet<Order> Orders { get; set; }
 
     public virtual DbSet<PubInfo> PubInfos { get; set; }
 
@@ -38,6 +42,10 @@ public partial class PubsContext : DbContext
     public virtual DbSet<Titleauthor> Titleauthors { get; set; }
 
     public virtual DbSet<Titleview> Titleviews { get; set; }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseSqlServer("Server=DESKTOP-8MOD252;Database=pubs;Trusted_Connection=true;TrustServerCertificate=true;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -170,6 +178,30 @@ public partial class PubsContext : DbContext
                 .HasConstraintName("FK__employee__pub_id__4BAC3F29");
         });
 
+        modelBuilder.Entity<ItemOrder>(entity =>
+        {
+            entity.HasKey(e => e.ItemId).HasName("PK__itemOrde__56A128AAC9E0DDF9");
+
+            entity.ToTable("itemOrder");
+
+            entity.Property(e => e.ItemId)
+                .ValueGeneratedNever()
+                .HasColumnName("itemId");
+            entity.Property(e => e.OrderId).HasColumnName("orderId");
+            entity.Property(e => e.TitleId)
+                .HasMaxLength(6)
+                .IsUnicode(false)
+                .HasColumnName("titleId");
+
+            entity.HasOne(d => d.Order).WithMany(p => p.ItemOrders)
+                .HasForeignKey(d => d.OrderId)
+                .HasConstraintName("FK__itemOrder__order__02084FDA");
+
+            entity.HasOne(d => d.Title).WithMany(p => p.ItemOrders)
+                .HasForeignKey(d => d.TitleId)
+                .HasConstraintName("FK__itemOrder__title__02FC7413");
+        });
+
         modelBuilder.Entity<Job>(entity =>
         {
             entity.HasKey(e => e.JobId).HasName("PK__jobs__6E32B6A588C20314");
@@ -184,6 +216,16 @@ public partial class PubsContext : DbContext
                 .HasColumnName("job_desc");
             entity.Property(e => e.MaxLvl).HasColumnName("max_lvl");
             entity.Property(e => e.MinLvl).HasColumnName("min_lvl");
+        });
+
+        modelBuilder.Entity<Order>(entity =>
+        {
+            entity.ToTable("orders");
+
+            entity.Property(e => e.OrderId).HasColumnName("orderId");
+            entity.Property(e => e.Date)
+                .HasColumnType("date")
+                .HasColumnName("date");
         });
 
         modelBuilder.Entity<PubInfo>(entity =>
